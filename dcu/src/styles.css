@@ -1,1 +1,57 @@
-/* You can add global styles to this file, and also import other style files */
+/* Import Bootstrap and Bootstrap Icons */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+:root {
+    /* Color Palette */
+    --primary-color: #03045E;
+    /* Deep Indigo */
+    --secondary-color: #0077B6;
+    /* Star Command Blue */
+    --tertiary-color: #00B4D8;
+    /* Pacific Blue */
+    --light-blue: #90E0EF;
+    /* Light Blue */
+    --lighter-blue: #CAF0F8;
+    /* Crystal Sky */
+    --text-dark: #03045E;
+    /* Use primary for dark text for consistency */
+    --text-light: #ffffff;
+}
+
+body {
+    background-color: var(--lighter-blue);
+    color: var(--text-dark);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 56px;
+    /* Space for fixed navbar */
+}
+
+/* Global utility classes using our vars */
+.bg-primary-custom {
+    background-color: var(--primary-color) !important;
+}
+
+.bg-secondary-custom {
+    background-color: var(--secondary-color) !important;
+}
+
+.bg-tertiary-custom {
+    background-color: var(--tertiary-color) !important;
+}
+
+.text-primary-custom {
+    color: var(--primary-color) !important;
+}
+
+/* Overriding Bootstrap Primary if desired, or just use custom classes */
+.btn-primary-custom {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary-custom:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
