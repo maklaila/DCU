@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
-    selector: 'app-navbar',
-    standalone: true,
-    imports: [RouterLink, RouterLinkActive],
-    template: `
+  selector: 'app-navbar',
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive],
+  template: `
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary-custom fixed-top shadow">
-      <div class="container-fluid">
+      <div class="container">
         <a class="navbar-brand fw-bold" routerLink="/">
           <i class="bi bi-mortarboard-fill me-2"></i>Bachillerato's Mind
         </a>
@@ -31,6 +31,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
             <li class="nav-item">
               <a class="nav-link" routerLink="/chat" routerLinkActive="active">Chat</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/shop" routerLinkActive="active">Materiales</a>
+            </li>
             <li class="nav-item ms-lg-3">
                <a class="btn btn-outline-light btn-sm rounded-pill px-3" routerLink="/booking">
                  Reserva Tutoría
@@ -41,7 +44,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       </div>
     </nav>
   `,
-    styles: [`
+  styles: [`
     .navbar-brand {
       color: var(--lighter-blue) !important;
     }
@@ -56,8 +59,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   `]
 })
 export class NavbarComponent {
-    // We rely on Bootstrap JS for the toggler, but since we might not have 'bootstrap.bundle.js' imported in scripts, 
-    // the toggler might not work without additional config or adding the script to angular.json.
-    // For 'visual redesign' often CSS is enough for desktop, but mobile menu needs JS.
-    // I will check if I need to add bootstrap js script to angular.json later.
+  // We rely on Bootstrap JS for the toggler, but since we might not have 'bootstrap.bundle.js' imported in scripts, 
+  // the toggler might not work without additional config or adding the script to angular.json.
+  // For 'visual redesign' often CSS is enough for desktop, but mobile menu needs JS.
+  // I will check if I need to add bootstrap js script to angular.json later.
 }

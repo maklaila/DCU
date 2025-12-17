@@ -37,6 +37,10 @@ export const routes: Routes = [
         component: ForumDetailPage,
     },
     {
+        path: 'shop',
+        loadComponent: () => import('./shop/shop.page').then(m => m.ShopPage)
+    },
+    {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',

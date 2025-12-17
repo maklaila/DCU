@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject, map } from 'rxjs';
 
 export interface User {
     name: string;
@@ -27,14 +27,49 @@ export interface CalendarEvent {
     date: Date;
     title: string;
     type: 'exam' | 'assignment' | 'reminder';
+    description?: string;
+}
+
+export interface Chat {
+    id: number;
+    name: string;
+    type: 'group' | 'private';
+    participants?: number;
+    avatarIcon: string;
+    lastMessage: string;
+    lastMessageTime: string;
+    senderName?: string; // For "Ana: ..." prefix in preview
 }
 
 export interface ChatMessage {
     id: number;
+    chatId: number;
     sender: string;
     text: string;
     timestamp: string;
     isMe: boolean;
+}
+
+export interface NewsItem {
+    id: number;
+    title: string;
+    date: string;
+    category: string;
+    content?: string;
+}
+
+export interface TimeSlot {
+    time: string;
+    status: 'available' | 'occupied' | 'selected';
+}
+
+export interface Tutor {
+    id: number;
+    name: string;
+    subject: string;
+    avatar: string;
+    availabilityText: string;
+    slots: TimeSlot[];
 }
 
 @Injectable({
@@ -44,11 +79,10 @@ export class MockDataService {
 
     private currentUser: User = {
         name: 'Carla',
-        avatar: 'assets/avatar-placeholder.png', // We'll handle images later or use icons
+        avatar: 'assets/avatar-placeholder.png',
         role: 'student'
     };
 
-    // Use BehaviorSubject to manage state
     private forumPostsSubject = new BehaviorSubject<ForumPost[]>([
         { id: 1, title: 'Duda sobre derivadas parciales', author: 'Juan Perez', date: 'Hace 2 horas', replies: 5, description: 'No entiendo el último paso del ejercicio 3 de la guía...' },
         { id: 2, title: 'Examen de Física II', author: 'Maria Garcia', date: 'Ayer', replies: 12, description: 'Alguien tiene los temas confirmados para el parcial?' },
@@ -56,24 +90,148 @@ export class MockDataService {
     ]);
 
     private gradesSubject = new BehaviorSubject<Grade[]>([
-        { subject: 'Matemáticas', score: 8.5, teacher: 'Prof. Lopez', term: '1º Cuatrimestre' },
-        { subject: 'Lengua', score: 9.0, teacher: 'Prof. Sanchez', term: '1º Cuatrimestre' },
-        { subject: 'Física', score: 7.2, teacher: 'Prof. Einstein', term: '1º Cuatrimestre' },
-        { subject: 'Filosofía', score: 6.5, teacher: 'Prof. Kant', term: '1º Cuatrimestre' },
-        { subject: 'Inglés', score: 9.5, teacher: 'Prof. Smith', term: '1º Cuatrimestre' },
-        { subject: 'Historia', score: 7.8, teacher: 'Prof. Historia', term: '2º Cuatrimestre' }
+        { subject: 'Historia', score: 8.5, teacher: 'Prof. Sanchez', term: '1º Cuatrimestre' },
+        { subject: 'Matemáticas', score: 6.0, teacher: 'Prof. Lopez', term: '1º Cuatrimestre' },
+        { subject: 'Lengua', score: 7.5, teacher: 'Prof. Ruiz', term: '1º Cuatrimestre' },
+        { subject: 'Inglés', score: 9.0, teacher: 'Prof. Smith', term: '1º Cuatrimestre' },
+        { subject: 'Física', score: 6.5, teacher: 'Prof. Einstein', term: '1º Cuatrimestre' },
     ]);
 
-    private calendarEvents: CalendarEvent[] = [
-        { date: new Date('2025-12-17'), title: 'Examen de Filosofía', type: 'exam' },
-        { date: new Date('2025-12-20'), title: 'Entrega TP Historia', type: 'assignment' }
+    private chats: Chat[] = [
+        {
+            id: 1,
+            name: 'Grupo Filosofía',
+            type: 'group',
+            participants: 5,
+            avatarIcon: 'bi-people-fill',
+            lastMessage: '¿Nos conectamos luego?',
+            senderName: 'Ana',
+            lastMessageTime: '10:35'
+        },
+        {
+            id: 2,
+            name: 'Prof. Lopez',
+            type: 'private',
+            avatarIcon: 'bi-person-fill',
+            lastMessage: 'Recibido, gracias.',
+            lastMessageTime: 'Ayer'
+        },
+        {
+            id: 3,
+            name: 'Matemáticas Avanzadas',
+            type: 'group',
+            participants: 12,
+            avatarIcon: 'bi-calculator-fill',
+            lastMessage: '¿Cómo se hacía el 4?',
+            senderName: 'Juan',
+            lastMessageTime: 'Lun'
+        }
     ];
 
-    private chatMessages: ChatMessage[] = [
-        { id: 1, sender: 'Ana', text: 'Hola! ¿Vieron las preguntas de Platón?', timestamp: '10:30', isMe: false },
-        { id: 2, sender: 'Pedro', text: 'Sí, la alegoría de la caverna entra seguro.', timestamp: '10:32', isMe: false },
-        { id: 3, sender: 'Carla', text: 'Menos mal, es lo que mejor me sé.', timestamp: '10:33', isMe: true },
-        { id: 4, sender: 'Ana', text: '¿Nos conectamos luego para repasar?', timestamp: '10:35', isMe: false }
+    private chatMessagesSubject = new BehaviorSubject<ChatMessage[]>([
+        // Chat 1: Filosofía
+        { id: 1, chatId: 1, sender: 'Ana', text: 'Hola! ¿Vieron las preguntas de Platón?', timestamp: 'Hace 10 min', isMe: false },
+        { id: 2, chatId: 1, sender: 'Pedro', text: 'Sí, la alegoría de la caverna entra seguro.', timestamp: 'Hace 8 min', isMe: false },
+        { id: 3, chatId: 1, sender: 'Carla', text: 'Menos mal, es lo que mejor me sé.', timestamp: 'Hace 5 min', isMe: true },
+        { id: 4, chatId: 1, sender: 'Ana', text: '¿Nos conectamos luego para repasar?', timestamp: 'Hace 2 min', isMe: false },
+
+        // Chat 2: Prof. Lopez
+        { id: 5, chatId: 2, sender: 'Carla', text: 'Profesor, ya le envié el trabajo práctico.', timestamp: 'Ayer 15:00', isMe: true },
+        { id: 6, chatId: 2, sender: 'Prof. Lopez', text: 'Recibido, gracias.', timestamp: 'Ayer 16:30', isMe: false },
+
+        // Chat 3: Matematicas
+        { id: 7, chatId: 3, sender: 'Juan', text: '¿Alguien pudo resolver el ejercicio 4 del TP?', timestamp: 'Hace 15 min', isMe: false },
+        { id: 8, chatId: 3, sender: 'Luisa', text: 'Sale con la regla de la cadena.', timestamp: 'Hace 10 min', isMe: false },
+        { id: 9, chatId: 3, sender: 'Juan', text: '¿Cómo se hacía el 4?', timestamp: 'Hace 2 min', isMe: false }
+    ]);
+
+    // Calculate dates relative to "current week" for the demo
+    private getRelativeDate(dayOffset: number): Date {
+        const d = new Date();
+        d.setDate(d.getDate() + dayOffset);
+        return d;
+    }
+
+    private calendarEventsSubject = new BehaviorSubject<CalendarEvent[]>([
+        {
+            // History Exam: Always this Friday
+            date: new Date(new Date().setDate(new Date().getDate() + (5 - new Date().getDay()))),
+            title: 'Examen de Historia',
+            type: 'exam',
+            description: 'Temas 4 y 5. Recuerda repasar los apuntes de la Revolución Francesa.'
+        },
+        {
+            // Math Assignment: Always this Thursday
+            date: new Date(new Date().setDate(new Date().getDate() + (4 - new Date().getDay()))),
+            title: 'Entrega de Matemáticas',
+            type: 'assignment',
+            description: 'Ejercicios de cálculo diferencial. Entregar en formato PDF.'
+        }
+    ]);
+
+
+
+    private newsSubject = new BehaviorSubject<NewsItem[]>([
+        {
+            id: 1,
+            title: 'Nuevas ponderaciones para la PAU en la rama de Ciencias de la Salud y Sociales',
+            date: 'Hace 2 horas',
+            category: 'Académico',
+            content: 'Se han aprobado cambios significativos en las ponderaciones para el acceso a la universidad (PAU) que afectarán al curso 2025/2026. Las asignaturas de Matemáticas II y Biología aumentan su peso específico para grados como Enfermería y Psicología. Por otro lado, Economía de la Empresa pasa a ser fundamental para las ramas sociales. Se recomienda revisar la tabla oficial publicada en el BOE para planificar la matrícula de segundo de bachillerato.'
+        },
+        {
+            id: 2,
+            title: 'Feria de Universidades: Visita los stands virtuales',
+            date: 'Ayer',
+            category: 'Eventos',
+            content: 'La feria anual de orientación universitaria abre sus puertas digitales. Podrás visitar stands de más de 50 universidades nacionales e internacionales, descargar folletos informativos y chatear en tiempo real con asesores de admisiones. No pierdas la oportunidad de conocer la oferta académica sin salir de casa. El acceso estará disponible durante toda la semana en la plataforma del campus virtual.'
+        },
+        {
+            id: 3,
+            title: 'Recordatorio: Cierre de actas del primer trimestre',
+            date: 'Hace 3 días',
+            category: 'Administración',
+            content: 'Se recuerda a todo el alumnado y profesorado que el cierre de actas para la evaluación del primer trimestre tendrá lugar el próximo viernes. Asegúrate de haber entregado todos los trabajos pendientes y justificado las ausencias antes de la fecha límite. Las notas estarán disponibles en el portal del alumno a partir del lunes siguiente.'
+        }
+    ]);
+
+    private tutors: Tutor[] = [
+        {
+            id: 1,
+            name: 'Laura García',
+            subject: 'Orientación Académica',
+            avatar: 'assets/tutor1.png',
+            availabilityText: 'Disponible hoy',
+            slots: [
+                { time: '16:00', status: 'available' },
+                { time: '17:00', status: 'available' },
+                { time: '18:30', status: 'occupied' }
+            ]
+        },
+        {
+            id: 2,
+            name: 'Carlos Ruiz',
+            subject: 'Matemáticas',
+            avatar: 'assets/tutor2.png',
+            availabilityText: 'Próxima semana',
+            slots: [
+                { time: '09:00', status: 'available' },
+                { time: '10:00', status: 'occupied' },
+                { time: '11:00', status: 'available' }
+            ]
+        },
+        {
+            id: 3,
+            name: 'Elena Vidals',
+            subject: 'Psicología',
+            avatar: 'assets/tutor3.png',
+            availabilityText: 'Pocas plazas',
+            slots: [
+                { time: '15:00', status: 'occupied' },
+                { time: '16:00', status: 'available' },
+                { time: '17:30', status: 'occupied' }
+            ]
+        }
     ];
 
     constructor() { }
@@ -82,12 +240,15 @@ export class MockDataService {
         return of(this.currentUser);
     }
 
+    getNews(): Observable<NewsItem[]> {
+        return this.newsSubject.asObservable();
+    }
+
     getForumPosts(): Observable<ForumPost[]> {
         return this.forumPostsSubject.asObservable();
     }
 
     getPost(id: number): Observable<ForumPost | undefined> {
-        // We take the current value of the subject
         return of(this.forumPostsSubject.getValue().find(p => p.id === id));
     }
 
@@ -115,10 +276,29 @@ export class MockDataService {
     }
 
     getCalendarEvents(): Observable<CalendarEvent[]> {
-        return of(this.calendarEvents);
+        return this.calendarEventsSubject.asObservable();
     }
 
-    getChatMessages(): Observable<ChatMessage[]> {
-        return of(this.chatMessages);
+    addCalendarEvent(event: CalendarEvent) {
+        const currentEvents = this.calendarEventsSubject.getValue();
+        this.calendarEventsSubject.next([...currentEvents, event]);
+    }
+
+    getChats(): Observable<Chat[]> {
+        return of(this.chats);
+    }
+
+    getChatMessages(chatId: number): Observable<ChatMessage[]> {
+        return this.chatMessagesSubject.asObservable().pipe(
+            map(messages => messages.filter(m => m.chatId === chatId))
+        );
+    }
+
+    addChatMessage(msg: ChatMessage) {
+        const current = this.chatMessagesSubject.getValue();
+        this.chatMessagesSubject.next([...current, msg]);
+    }
+    getTutors(): Observable<Tutor[]> {
+        return of(this.tutors);
     }
 }

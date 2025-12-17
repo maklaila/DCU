@@ -39,6 +39,21 @@ import { Observable } from 'rxjs';
           </div>
         </a>
       </div>
+
+
+      <!-- CTA to Chat -->
+      <div class="d-flex justify-content-end mt-4">
+         <a routerLink="/chat" class="btn btn-outline-primary-custom rounded-pill shadow-sm d-flex align-items-center gap-2 px-4 py-2 bg-white card-hover">
+            <span class="d-flex align-items-center justify-content-center bg-success text-white rounded-circle" style="width: 24px; height: 24px;">
+              <i class="bi bi-lightning-fill" style="font-size: 0.8rem;"></i>
+            </span>
+            <div class="text-start lh-1">
+               <span class="d-block fw-bold small text-dark">¿Duda urgente?</span>
+               <small class="text-muted" style="font-size: 0.7rem;">Pregunta en tiempo real</small>
+            </div>
+            <i class="bi bi-chevron-right text-muted ms-1"></i>
+         </a>
+      </div>
     </div>
 
     <!-- Simple Custom Modal Overlay -->
