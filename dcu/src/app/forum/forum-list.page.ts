@@ -25,17 +25,19 @@ import { Observable } from 'rxjs';
         </button>
       </div>
 
-      <div class="list-group shadow-sm">
+      <div class="d-flex flex-column gap-3">
         <a *ngFor="let post of posts$ | async" [routerLink]="['/forum', post.id]" 
-           class="list-group-item list-group-item-action p-4 border-0 border-bottom">
-          <div class="d-flex w-100 justify-content-between mb-2">
-            <h5 class="mb-1 fw-bold text-primary-custom">{{ post.title }}</h5>
-            <small class="text-muted">{{ post.date }}</small>
-          </div>
-          <p class="mb-2 text-secondary">{{ post.description }}</p>
-          <div class="d-flex align-items-center text-muted small">
-            <span class="me-3"><i class="bi bi-person-circle me-1"></i> {{ post.author }}</span>
-            <span><i class="bi bi-chat-dots me-1"></i> {{ post.replies }} respuestas</span>
+           class="card border-0 shadow-sm rounded-4 text-decoration-none text-dark floating-card">
+          <div class="card-body p-4">
+              <div class="d-flex w-100 justify-content-between mb-2">
+                <h5 class="mb-1 fw-bold text-primary-custom">{{ post.title }}</h5>
+                <small class="text-muted">{{ post.date }}</small>
+              </div>
+              <p class="mb-2 text-secondary">{{ post.description }}</p>
+              <div class="d-flex align-items-center text-muted small">
+                <span class="me-3"><i class="bi bi-person-circle me-1"></i> {{ post.author }}</span>
+                <span><i class="bi bi-chat-dots me-1"></i> {{ post.replies }} respuestas</span>
+              </div>
           </div>
         </a>
       </div>
@@ -86,8 +88,13 @@ import { Observable } from 'rxjs';
     </div>
   `,
   styles: [`
-    .list-group-item:hover {
-      background-color: var(--lighter-blue);
+    .floating-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .floating-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+      background-color: white; /* Maintain white background on hover */
     }
   `]
 })

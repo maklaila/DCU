@@ -147,8 +147,9 @@ import { FormsModule } from '@angular/forms'; // Import Forms Module
     }
     
     .list-group-item.active {
-      background-color: #8A2BE2 !important; /* Hardcoded Electric Violet fallback */
-      background-color: var(--electric-violet, #8A2BE2) !important;
+      background-color: var(--primary-color) !important; /* Blue Corporate */
+      /* fallbacks if var not defined */
+      background-color: #0d6efd !important; 
       border: none;
       color: white !important;
       box-shadow: 0 4px 6px rgba(138, 43, 226, 0.2);
@@ -170,8 +171,9 @@ import { FormsModule } from '@angular/forms'; // Import Forms Module
 
     /* Avatar adjustments in active state */
     .list-group-item.active .bg-white.text-primary-custom {
-      background-color: white !important; /* Force white background */
-      color: var(--electric-violet, #8A2BE2) !important; /* Force primary color for icon */
+      background-color: transparent !important; /* Transparent to show blue bg */
+      color: white !important; /* White icon */
+      border: 1px solid rgba(255,255,255,0.5); /* Optional: subtle border */
     }
   `]
 })

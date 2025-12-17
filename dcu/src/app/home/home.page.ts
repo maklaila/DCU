@@ -236,6 +236,17 @@ import { CommonModule } from '@angular/common';
        color: var(--electric-violet) !important;
        /* text-decoration: underline; Optional refined style */
     }
+    
+    .icon-square {
+      width: 3.5rem;
+      height: 3.5rem;
+      aspect-ratio: 1 / 1;
+      flex-shrink: 0;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      padding: 0 !important;
+    }
   `]
 })
 export class HomePage implements OnInit {

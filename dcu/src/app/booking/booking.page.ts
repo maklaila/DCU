@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   standalone: true,
   imports: [CommonModule, RouterLink],
   template: `
-    <div class="container fade-in mb-5">
+    <div class="container fade-in mb-5 pb-5">
       <div class="row mb-4 align-items-center">
         <div class="col">
            <nav aria-label="breadcrumb">
@@ -26,20 +26,13 @@ import { Observable } from 'rxjs';
       <div class="row g-4 justify-content-center">
         @for (tutor of tutors$ | async; track tutor.id) {
           <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-               <div class="card-body p-4 text-center">
-                  <div class="mb-3 position-relative d-inline-block">
-                     <div class="bg-light rounded-circle p-1">
-                        <img [src]="tutor.avatar" 
-                             alt="{{tutor.name}}" 
-                             class="rounded-circle"
-                             style="width: 80px; height: 80px; object-fit: cover;"
-                             onerror="this.src='https://ui-avatars.com/api/?name=' + this.alt + '&background=random'">
-                     </div>
-                     <span class="position-absolute bottom-0 end-0 p-1 bg-success border border-light rounded-circle">
-                       <span class="visually-hidden">Disponible</span>
-                     </span>
-                  </div>
+            <div class="card h-100 border-0 shadow rounded-4 overflow-hidden">
+               <div class="card-body p-4 d-flex flex-column align-items-center">
+                  <img [src]="tutor.avatar" 
+                       alt="{{tutor.name}}" 
+                       class="rounded-circle mb-3"
+                       style="width: 80px; height: 80px; object-fit: cover;"
+                       onerror="this.src='https://ui-avatars.com/api/?name=' + this.alt + '&background=random'">
                   
                   <h5 class="fw-bold text-primary-custom mb-1">
                       {{ tutor.name }}
@@ -59,7 +52,7 @@ import { Observable } from 'rxjs';
 
                   <p class="small text-muted mb-4"><i class="bi bi-clock me-1"></i>{{ tutor.availabilityText }}</p>
                   
-                  <div class="d-flex flex-wrap justify-content-center gap-2">
+                  <div class="d-flex flex-wrap justify-content-center gap-2 mt-auto">
                      @for (slot of tutor.slots; track slot.time) {
                         <button type="button" 
                                 class="btn btn-sm rounded-pill fw-semibold slot-btn"
@@ -83,7 +76,6 @@ import { Observable } from 'rxjs';
       </div>
     </div>
 
-    <!-- Floating Action Capsule -->
     <div *ngIf="selectedSlot" class="position-fixed bottom-0 start-50 translate-middle-x mb-4 shadow-lg rounded-pill bg-primary-custom p-3 px-5 d-flex align-items-center gap-4 fade-in-up booking-fab">
          
          <div class="flex-grow-1">
@@ -100,7 +92,6 @@ import { Observable } from 'rxjs';
          </button>
     </div>
 
-    <!-- Success Modal -->
     <div class="modal fade show d-block" *ngIf="showSuccessModal" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4 border-0 shadow-lg p-3">
@@ -122,10 +113,12 @@ import { Observable } from 'rxjs';
   `,
   styles: [`
     .rounded-4 { border-radius: 1.5rem !important; }
-    /* Soft light blue background for the page context (if applied to body, but here we style the container implied context) */
+    .rounded-5 { border-radius: 2rem !important; }
+    
+    /* MODIFICADO: Se ha eliminado el color de fondo para que sea transparente */
     :host {
       display: block;
-      background-color: #f0f4f8; /* Soft blueish gray */
+      /* background-color eliminado */
       min-height: 100vh;
       padding-top: 2rem;
     }

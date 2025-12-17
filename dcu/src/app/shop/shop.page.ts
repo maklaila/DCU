@@ -67,6 +67,29 @@ interface Product {
         }
       </div>
     </div>
+
+    <!-- Success Modal (Copied from Booking for consistency) -->
+    <div class="modal fade show d-block" *ngIf="showModal" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-body text-center">
+            <div class="mb-3 text-success">
+               <i class="bi bi-check-circle-fill" style="font-size: 4rem;"></i>
+            </div>
+            <h3 class="fw-bold mb-3 text-primary-custom">¡Compra Realizada con Éxito!</h3>
+            <p class="text-muted mb-4 lead fs-6">
+              Tienes el material disponible en tu zona de descargas.
+            </p>
+            <button class="btn btn-primary-custom rounded-pill w-100 fw-bold py-2" (click)="closeModal()">
+              Entendido
+            </button>
+            <button class="btn btn-link text-muted mt-2 text-decoration-none" (click)="closeModal()">
+              Seguir comprando
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   `,
   styles: [`
     .rounded-4 { border-radius: 1.5rem !important; }
@@ -102,8 +125,14 @@ export class ShopPage {
     }
   ];
 
+  showModal = false;
+
   buy(product: Product) {
-    // Simple mock logic as requested
-    alert(`¡${product.title} añadido al carrito! (Simulación)`);
+    // Show custom modal instead of alert
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 }
