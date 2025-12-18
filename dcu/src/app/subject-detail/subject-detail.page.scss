@@ -1,0 +1,55 @@
+/* Soft UI Enhancements */
+
+/* Blobs for Hero */
+.blur-3xl {
+    filter: blur(64px);
+}
+
+.blob-1 {
+    width: 300px;
+    height: 300px;
+    transform: translate(30%, -30%);
+}
+
+.blob-2 {
+    width: 250px;
+    height: 250px;
+    transform: translate(-30%, 30%);
+}
+
+/* Hover Effects */
+.hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 2rem rgba(0, 0, 0, 0.08) !important;
+}
+
+.resource-item {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.resource-item:hover {
+    background-color: var(--bs-gray-100);
+    transform: translateX(4px);
+}
+
+.resource-item:hover .btn {
+    background-color: var(--bs-primary) !important;
+    color: white !important;
+    box-shadow: 0 .25rem .5rem rgba(var(--bs-primary-rgb), 0.3) !important;
+}
+
+/* Custom rounded corners if not using standard Bootstrap 5.3 rounded-5 (which is 2rem) */
+/* .rounded-5 is standard in newer Bootstrap, but just in case */
+.rounded-5 {
+    border-radius: 2rem !important;
+}
+
+.bg-primary-subtle {
+    background-color: rgba(13, 110, 253, 0.1) !important;
+    /* Fallback if variable missing */
+}

@@ -39,6 +39,13 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
                  Reserva Tutoría
                </a>
             </li>
+            <li class="nav-item ms-3 d-flex align-items-center">
+               <img src="https://ui-avatars.com/api/?name=Carla+Rodriguez&background=random&rounded=true" 
+                    alt="Perfil" 
+                    class="rounded-circle border border-2 border-white profile-avatar"
+                    width="40" height="40"
+                    routerLink="/profile">
+            </li>
           </ul>
         </div>
       </div>
@@ -55,6 +62,13 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     .nav-link:hover, .nav-link.active {
       color: #fff !important;
       font-weight: 500;
+    }
+    .profile-avatar {
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .profile-avatar:hover {
+      transform: scale(1.1);
     }
   `]
 })

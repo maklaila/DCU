@@ -41,8 +41,20 @@ export const routes: Routes = [
         loadComponent: () => import('./shop/shop.page').then(m => m.ShopPage)
     },
     {
+        path: 'login',
+        loadComponent: () => import('./login/login.page').then(m => m.LoginPage)
+    },
+    {
+        path: 'profile',
+        loadComponent: () => import('./profile/profile.page').then(m => m.ProfilePage)
+    },
+    {
+        path: 'subject/math',
+        loadComponent: () => import('./subject-detail/subject-detail.page').then(m => m.SubjectDetailPage)
+    },
+    {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'login', // Default to login
         pathMatch: 'full',
     },
 ];

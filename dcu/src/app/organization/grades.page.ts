@@ -53,11 +53,13 @@ import { Observable, map } from 'rxjs';
       <!-- Subject Cards Grid -->
       <div class="row g-4">
          <div *ngFor="let grade of filteredGrades$ | async" class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm border-0 rounded-4 card-hover">
+            <div class="card h-100 shadow-sm border-0 rounded-4 card-hover"
+                 [routerLink]="grade.subject === 'Matemáticas II' ? '/subject/math' : null"
+                 [style.cursor]="grade.subject === 'Matemáticas II' ? 'pointer' : 'default'">
                <div class="card-body p-4 d-flex flex-column justify-content-between">
                   <div>
                      <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div class="icon-square rounded-circle p-3"
+                        <div class="icon-square rounded-circle"
                              [ngClass]="getIconBgColor(grade.score)">
                            <i class="bi" 
                               [class.bi-journal-check]="grade.score >= 5" 
@@ -83,6 +85,12 @@ import { Observable, map } from 'rxjs';
                              [ngClass]="getProgressBarColor(grade.score)"
                              aria-valuemin="0" aria-valuemax="10"></div>
                      </div>
+                  </div>
+
+                  <div *ngIf="grade.subject === 'Matemáticas II'" class="mt-3">
+                     <button class="btn btn-sm btn-outline-primary rounded-pill w-100 fw-bold">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Ver Aula Virtual
+                     </button>
                   </div>
                </div>
             </div>
@@ -152,6 +160,16 @@ import { Observable, map } from 'rxjs';
     .bg-success-subtle-custom { background-color: #d1e7dd; }
     .bg-warning-subtle-custom { background-color: #ffe5d0; }
     .bg-danger-subtle-custom { background-color: #f8d7da; }
+
+    .icon-square {
+      width: 45px;
+      height: 45px;
+      aspect-ratio: 1 / 1;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   `]
 
 })

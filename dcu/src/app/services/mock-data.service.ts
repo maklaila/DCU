@@ -91,7 +91,7 @@ export class MockDataService {
 
     private gradesSubject = new BehaviorSubject<Grade[]>([
         { subject: 'Historia', score: 8.5, teacher: 'Prof. Sanchez', term: '1º Cuatrimestre' },
-        { subject: 'Matemáticas', score: 6.0, teacher: 'Prof. Lopez', term: '1º Cuatrimestre' },
+        { subject: 'Matemáticas II', score: 6.0, teacher: 'Prof. Lopez', term: '1º Cuatrimestre' },
         { subject: 'Lengua', score: 7.5, teacher: 'Prof. Ruiz', term: '1º Cuatrimestre' },
         { subject: 'Inglés', score: 9.0, teacher: 'Prof. Smith', term: '1º Cuatrimestre' },
         { subject: 'Física', score: 6.5, teacher: 'Prof. Einstein', term: '1º Cuatrimestre' },
