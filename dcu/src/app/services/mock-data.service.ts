@@ -118,13 +118,13 @@ export class MockDataService {
         },
         {
             id: 3,
-            name: 'Matemáticas Avanzadas',
+            name: 'Matemáticas II',
             type: 'group',
             participants: 12,
             avatarIcon: 'bi-calculator-fill',
-            lastMessage: '¿Cómo se hacía el 4?',
-            senderName: 'Juan',
-            lastMessageTime: 'Lun'
+            lastMessage: '¡Hola Carla! No te preocupes, esa tiene...',
+            senderName: 'Sofía',
+            lastMessageTime: '16:48'
         }
     ];
 
@@ -140,9 +140,9 @@ export class MockDataService {
         { id: 6, chatId: 2, sender: 'Prof. Lopez', text: 'Recibido, gracias.', timestamp: 'Ayer 16:30', isMe: false },
 
         // Chat 3: Matematicas
-        { id: 7, chatId: 3, sender: 'Juan', text: '¿Alguien pudo resolver el ejercicio 4 del TP?', timestamp: 'Hace 15 min', isMe: false },
-        { id: 8, chatId: 3, sender: 'Luisa', text: 'Sale con la regla de la cadena.', timestamp: 'Hace 10 min', isMe: false },
-        { id: 9, chatId: 3, sender: 'Juan', text: '¿Cómo se hacía el 4?', timestamp: 'Hace 2 min', isMe: false }
+        { id: 7, chatId: 3, sender: 'Alex', text: '¿Alguien sabe si el tema de matrices entra en el parcial del martes?', timestamp: '16:30', isMe: false },
+        { id: 8, chatId: 3, sender: 'Carla', text: 'Chicos, estoy atascada con la integral del ejercicio 4... 😫 he probado por partes tres veces y no me sale. Me estoy agobiando un poco.', timestamp: '16:45', isMe: true },
+        { id: 9, chatId: 3, sender: 'Sofía', text: '¡Hola Carla! No te preocupes, esa tiene truco. Es una integral racional, tienes que descomponer en fracciones simples primero. El grado del numerador es mayor, ¡divide polinomios y sale sola! 💪', timestamp: '16:48', isMe: false }
     ]);
 
     // Calculate dates relative to "current week" for the demo
@@ -177,7 +177,7 @@ export class MockDataService {
             title: 'Nuevas ponderaciones para la PAU en la rama de Ciencias de la Salud y Sociales',
             date: 'Hace 2 horas',
             category: 'Académico',
-            content: 'Se han aprobado cambios significativos en las ponderaciones para el acceso a la universidad (PAU) que afectarán al curso 2025/2026. Las asignaturas de Matemáticas II y Biología aumentan su peso específico para grados como Enfermería y Psicología. Por otro lado, Economía de la Empresa pasa a ser fundamental para las ramas sociales. Se recomienda revisar la tabla oficial publicada en el BOE para planificar la matrícula de segundo de bachillerato.'
+            content: 'Se han aprobado cambios significativos en las ponderaciones para el acceso a la universidad. Comprueba cómo afectan a grados como Psicología o Enfermería.'
         },
         {
             id: 2,

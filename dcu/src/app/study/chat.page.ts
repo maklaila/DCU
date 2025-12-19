@@ -189,7 +189,7 @@ export class ChatPage implements OnInit {
 
   ngOnInit() {
     this.chats$ = this.dataService.getChats();
-    this.selectChat(1); // Default to first chat
+    this.selectChat(3); // Default to first chat
   }
 
   selectChat(id: number) {

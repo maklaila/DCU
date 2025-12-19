@@ -101,7 +101,7 @@ import { Observable } from 'rxjs';
             </div>
             <h3 class="fw-bold mb-3 text-primary-custom">¡Reserva Confirmada!</h3>
             <p class="text-muted mb-4 lead fs-6">
-              Te hemos enviado un correo con los detalles para el <span class="fw-bold text-dark">Jueves a las 17:00</span>.
+              Te hemos enviado un correo con los detalles para tu sesión de Orientación el <span class="fw-bold text-dark">Jueves a las 17:00</span>.
             </p>
             <button class="btn btn-primary-custom rounded-pill w-100 fw-bold py-2" (click)="closeModal()" routerLink="/home">
               Volver al Inicio
