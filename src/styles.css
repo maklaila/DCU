@@ -22,7 +22,7 @@
 body {
     background-color: var(--lighter-blue);
     color: var(--text-dark);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI';
     padding-top: 56px;
     /* Space for fixed navbar */
 }

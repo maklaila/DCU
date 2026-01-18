@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'app-profile',
-    standalone: true,
-    imports: [CommonModule, RouterLink],
-    template: `
+  selector: 'app-profile',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  template: `
     <div class="container-fluid min-vh-100 d-flex flex-column p-0">
       <!-- Navbar / Back Button Simulation -->
       <div class="d-flex align-items-center p-4">
@@ -83,7 +83,7 @@ import { RouterLink } from '@angular/router';
       </div>
     </div>
   `,
-    styles: [`
+  styles: [`
     :host {
       display: block;
       /* Background will show through from body/main if set to transparent */
@@ -110,18 +110,18 @@ import { RouterLink } from '@angular/router';
     }
 
     .btn-primary-custom {
-       background-color: #6f42c1; /* Fallback if var not set, close to purple/violet */
-       background-color: var(--electric-violet, #6f42c1);
-       border-color: var(--electric-violet, #6f42c1);
+       background-color: #03045E; /* Fallback if var not set, close to purple/violet */
+       background-color: var(--electric-violet, #03045E);
+       border-color: var(--electric-violet, #03045E);
        color: white;
     }
     .btn-primary-custom:hover {
-       background-color: var(--french-violet, #563d7c);
-       border-color: var(--french-violet, #563d7c);
+       background-color: var(--french-violet,#03045E;
+       border-color: var(--french-violet,#03045E;
     }
 
     .text-primary-custom {
-      color: var(--electric-violet, #6f42c1);
+      color: var(--electric-violet, #03045E);
     }
     
     .bg-light {
@@ -146,15 +146,15 @@ import { RouterLink } from '@angular/router';
   `]
 })
 export class ProfilePage {
-    saveChanges() {
-        // Simulation
-        alert('¡Cambios guardados con éxito!');
-    }
+  saveChanges() {
+    // Simulation
+    alert('¡Cambios guardados con éxito!');
+  }
 
-    logout() {
-        // Simulation
-        if (confirm('¿Seguro que quieres cerrar sesión?')) {
-            alert('Sesión cerrada.');
-        }
+  logout() {
+    // Simulation
+    if (confirm('¿Seguro que quieres cerrar sesión?')) {
+      alert('Sesión cerrada.');
     }
+  }
 }

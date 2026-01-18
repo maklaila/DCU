@@ -6,13 +6,8 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, NavbarComponent],
-  template: `
-    <app-navbar></app-navbar>
-    <div class="container" style="margin-top: 80px;">
-      <router-outlet></router-outlet>
-    </div>
-  `,
-  styles: []
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'dcu';

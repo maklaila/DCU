@@ -98,8 +98,8 @@ interface Product {
       transform: translateY(-5px); 
       box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important; 
     }
-    .text-primary-custom { color: var(--primary-color, #6f42c1); }
-    .bg-primary-custom { background-color: var(--primary-color, #6f42c1); color: white; }
+    .text-primary-custom { color: var(--primary-color, #03045E); }
+    .bg-primary-custom { background-color: var(--primary-color, #03045E); color: white; }
     .fade-in { animation: fadeIn 0.5s ease-in; }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
